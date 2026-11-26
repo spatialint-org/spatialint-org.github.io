@@ -1,4 +1,4 @@
-# spatialint.com
+# Spatial Intelligence website
 
 The landing page, documentation, and blog for
 [Spatial Intelligence](https://github.com/spatialint-org/spatial-intelligence) — a geospatial
@@ -122,14 +122,13 @@ app-preview examples. The homepage map plates and class overlays were generated 
 every push to `main`.
 
 The workflow reads the deployed Pages URL from `actions/configure-pages` and passes it to
-`hugo --baseURL`. The same build therefore works at a project URL such as
-`https://rahuldshetty.github.io/spatialint-org.github.io/` and at the custom domain. All internal
-asset and content URLs are base-path aware.
+`hugo --baseURL`. The same build works at a project URL such as
+`https://rahuldshetty.github.io/spatialint-org.github.io/` and at an organization Pages site. All
+internal asset and content URLs are base-path aware.
 
 **Before merging/deploying upstream:**
 
 - Enable Pages for the repository with **Source: GitHub Actions**.
-- Confirm the custom domain `spatialint.com` is set in Pages and that `static/CNAME` matches.
-- Configure DNS for the apex and `www` records, then enforce HTTPS.
 - Ensure the `github-pages` environment allows deployments from `main`.
-- Re-run the workflow after enabling Pages; the first run fails at `configure-pages` if Pages is off.
+- After enabling Pages, re-run the workflow; the first run fails at `configure-pages` if Pages is off.
+- A custom domain is optional. If added later, configure it in Pages and set up DNS/HTTPS there.
