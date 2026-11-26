@@ -103,12 +103,18 @@ and parent-theme synchronization.
 The preview is intentionally inert beyond tabs and layer controls. Run buttons, menus, and dialogs do
 nothing. Re-copy the app's CSS and rendered `#app` markup when the app shell changes.
 
+Framework marks in the model section come from the official PyTorch, ONNX, and Hugging Face
+repositories. The ONNX asset is the official mark cropped to its icon; Hugging Face's mark represents
+the Transformers library.
+
 `static/demo/projects.json` documents the source questions, results, layers, and files behind the
-examples. The map plates and class overlays were generated from public imagery:
+app-preview examples. The homepage map plates and class overlays were generated from public imagery:
 
 - Flood: Sentinel-2 L2A over Tulare Lake, 2022 and 2023, NDWI difference.
-- Buildings: Google satellite z18 over Long Beach, local RT-DETR roof model.
-- Surface: USDA NAIP 2023 over Denver, k-means on RGB + NDVI.
+- Buildings: Google satellite z18 over Long Beach, local RT-DETR roof model (app preview).
+- Aircraft: Google satellite z18 over the Denver apron, local detector; 145 marked boxes.
+- Cropland: Sentinel-2 L2A over Fresno, 20 July 2023; high-vigor mask from NDVI.
+- Surface: USDA NAIP 2023 over Denver, k-means on RGB + NDVI (app preview).
 
 ## Deploy
 

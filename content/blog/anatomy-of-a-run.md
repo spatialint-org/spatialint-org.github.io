@@ -7,8 +7,8 @@ cover: "/demo/cover-buildings.jpg"
 coverAlt: Aerial image of Long Beach with large building footprints marked
 ---
 
-The second example on the homepage is a building-detection run. This post describes what happens
-between the image and the map.
+The building-detection example is a run between an image and a map. This post describes what happens
+between the two.
 
 ![Large buildings in Long Beach with detection boxes](/demo/long-beach-detections.jpg)
 
