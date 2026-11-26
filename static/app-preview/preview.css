@@ -1,0 +1,88 @@
+/* Shared chrome around the real app shell in the website preview. */
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+}
+
+#app {
+  --panel-width: 380px;
+  height: 100vh;
+  width: 100vw;
+}
+
+#tab-content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+#tab-content > [hidden],
+#tab-content [hidden] {
+  display: none !important;
+}
+
+/* The preview has no live backend; keep the UI legible without hover-dependent
+   affordances from the production shell. */
+.preview-static-note {
+  display: none;
+}
+
+.data-tab {
+  padding: 12px;
+}
+
+.data-tab .drop-zone {
+  cursor: default;
+}
+
+.data-tab .import-row button,
+.data-tab .data-refresh {
+  cursor: default;
+}
+
+.data-tab .file-tree {
+  margin-top: 4px;
+}
+
+.data-tab .file-tree .tree-dir > details > summary {
+  cursor: default;
+}
+
+.preview-file {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: 12.5px;
+}
+
+.preview-file .icon {
+  color: var(--text-3);
+}
+
+.preview-file .preview-file-size {
+  margin-left: auto;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.preview-file.is-folder .icon {
+  color: var(--primary);
+}
+
+/* The app's iframe is a separate document; this keeps it above the shell
+   background during the one-frame load. */
+#map-panel {
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .app-preview .app-live-wrap {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,25 @@
+{{- $page := .page -}}
+{{- $featured := .featured -}}
+<article class="post-card{{ if $featured }} featured{{ end }}">
+  <a href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
+    {{ with $page.Params.cover }}
+      <img class="post-cover" src="{{ strings.TrimPrefix "/" . | relURL }}" width="1200" height="630" loading="lazy" alt="">
+    {{ end }}
+  </a>
+  <div class="post-body">
+    <div class="post-meta">
+      <span>{{ $page.Date.Format "Jan 2, 2006" }}</span>
+      <span class="sep"></span>
+      <span>{{ $page.ReadingTime }} min read</span>
+      {{ if $page.Draft }}<span class="sep"></span><span class="draft">Draft</span>{{ end }}
+    </div>
+    <h2><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+    <p class="post-excerpt">{{ $page.Description | default ($page.Summary | plainify | truncate 170) }}</p>
+    {{ with $page.Params.tags }}
+      <div class="post-tags">
+        {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+      </div>
+    {{ end }}
+    <span class="post-more">Read the post →</span>
+  </div>
+</article>

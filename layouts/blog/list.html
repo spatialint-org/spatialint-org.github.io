@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="container">
+  <div class="blog-head">
+    <p class="eyebrow"><span class="eyebrow-mark"></span>Posts</p>
+    <h1>Blog</h1>
+    <p>
+      Project updates, design decisions, and walkthroughs of completed analyses.
+    </p>
+  </div>
+
+  <div class="post-grid">
+    {{ range $i, $page := .Pages.ByDate.Reverse }}
+      {{ partial "post-card.html" (dict "page" $page "featured" (eq $i 0)) }}
+    {{ end }}
+  </div>
+</div>
+{{ end }}

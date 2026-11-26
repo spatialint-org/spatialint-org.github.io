@@ -1,0 +1,404 @@
+{
+  "projects": [
+    {
+      "id": "flood",
+      "tab": "Flood extent",
+      "number": "01",
+      "mode": "flood",
+      "workspace": "tulare-flood",
+      "title": "Tulare Lake flood extent",
+      "place": "Kings County, California",
+      "coords": "35.99\u00b0 N \u00b7 119.72\u00b0 W",
+      "date": "June 2022 \u2192 June 2023",
+      "summary": "Two cloud-free Sentinel-2 images show new water across the Tulare Lake basin after the 2023 snowmelt.",
+      "question": "How much new water appeared in the Tulare Lake basin between June 2022 and June 2023? Map the extent.",
+      "metric": {
+        "value": "226.8",
+        "unit": "km\u00b2",
+        "label": "new water"
+      },
+      "stats": [
+        {
+          "label": "AOI inundated",
+          "value": "20.3%"
+        },
+        {
+          "label": "Largest patch",
+          "value": "191 km\u00b2"
+        },
+        {
+          "label": "Water before",
+          "value": "1.2 km\u00b2"
+        }
+      ],
+      "method": "Sentinel-2 L2A \u00b7 NDWI above 0.12 \u00b7 after minus before",
+      "source": "ESA Copernicus \u00b7 Earth Search",
+      "files": [
+        "data/S2B_11SKV_20220615_TCI.tif",
+        "data/S2B_11SKV_20220615_B03.tif",
+        "data/S2B_11SKV_20230630_TCI.tif",
+        "data/S2B_11SKV_20230630_B08.tif",
+        "results/flood_extent.geojson",
+        "results/flood_stats.json",
+        "maps/tulare_flood.geolibre.json",
+        "traces/run.jsonl"
+      ],
+      "log": [
+        {
+          "step": "Read scenes",
+          "detail": "2 dates \u00b7 under 1% cloud"
+        },
+        {
+          "step": "NDWI",
+          "detail": "B03 / B08 \u00b7 10 m"
+        },
+        {
+          "step": "Threshold",
+          "detail": "after > 0.12"
+        },
+        {
+          "step": "Difference",
+          "detail": "after minus before"
+        },
+        {
+          "step": "Area",
+          "detail": "226.8 km\u00b2 new water"
+        }
+      ],
+      "map": {
+        "before": "/demo/flood-before.jpg",
+        "after": "/demo/flood-after.jpg",
+        "overlay": "/demo/flood-mask.png",
+        "beforeLabel": "15 Jun 2022",
+        "afterLabel": "30 Jun 2023",
+        "scale": "5 km",
+        "attribution": "Sentinel-2 L2A \u00b7 ESA / Earth Search",
+        "labels": [
+          {
+            "text": "Tulare Lake",
+            "sub": "new inundation",
+            "x": 49,
+            "y": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "buildings",
+      "tab": "Building footprints",
+      "number": "02",
+      "mode": "detect",
+      "workspace": "long-beach-buildings",
+      "title": "Large building footprints",
+      "place": "Long Beach, California",
+      "coords": "33.734\u00b0 N \u00b7 118.296\u00b0 W",
+      "date": "Google satellite \u00b7 z18",
+      "summary": "A local RT-DETR roof model finds the large buildings in four blocks. Houses and smaller structures sit below the confidence threshold.",
+      "question": "Find the large buildings in this Long Beach block and map each footprint.",
+      "metric": {
+        "value": "15",
+        "unit": "buildings",
+        "label": "detected above 0.40"
+      },
+      "stats": [
+        {
+          "label": "Top confidence",
+          "value": "0.73"
+        },
+        {
+          "label": "Lowest kept",
+          "value": "0.40"
+        },
+        {
+          "label": "Source resolution",
+          "value": "0.5 m/px"
+        }
+      ],
+      "method": "RT-DETR roof model \u00b7 0.40 confidence \u00b7 Python sandbox",
+      "source": "Google satellite z18 \u00b7 2000 \u00d7 1125",
+      "files": [
+        "data/long-beach-z18.jpg",
+        "results/large_buildings.geojson",
+        "maps/long-beach-buildings.geolibre.json",
+        "traces/run.jsonl"
+      ],
+      "log": [
+        {
+          "step": "Crop image",
+          "detail": "z18 \u00b7 0.5 m/px"
+        },
+        {
+          "step": "Load model",
+          "detail": "RT-DETR \u00b7 local weights"
+        },
+        {
+          "step": "Detect",
+          "detail": "15 candidates"
+        },
+        {
+          "step": "Threshold",
+          "detail": "confidence \u2265 0.40"
+        },
+        {
+          "step": "Map",
+          "detail": "15 boxes"
+        }
+      ],
+      "map": {
+        "image": "/demo/long-beach.jpg",
+        "scale": "500 m",
+        "attribution": "Google satellite \u00b7 z18",
+        "labels": [
+          {
+            "text": "Long Beach",
+            "sub": "large building inventory",
+            "x": 40,
+            "y": 82
+          }
+        ],
+        "features": [
+          {
+            "id": 1,
+            "confidence": 0.725,
+            "x": 35.318,
+            "y": 0.067,
+            "w": 15.674,
+            "h": 12.906
+          },
+          {
+            "id": 2,
+            "confidence": 0.654,
+            "x": 54.529,
+            "y": 0.069,
+            "w": 13.172,
+            "h": 13.461
+          },
+          {
+            "id": 3,
+            "confidence": 0.644,
+            "x": 65.547,
+            "y": 37.898,
+            "w": 4.837,
+            "h": 9.733
+          },
+          {
+            "id": 4,
+            "confidence": 0.59,
+            "x": 35.293,
+            "y": 54.508,
+            "w": 4.595,
+            "h": 5.392
+          },
+          {
+            "id": 5,
+            "confidence": 0.546,
+            "x": 88.785,
+            "y": 0.114,
+            "w": 4.426,
+            "h": 13.98
+          },
+          {
+            "id": 6,
+            "confidence": 0.525,
+            "x": 58.341,
+            "y": 90.103,
+            "w": 5.048,
+            "h": 9.878
+          },
+          {
+            "id": 7,
+            "confidence": 0.523,
+            "x": 16.648,
+            "y": 61.339,
+            "w": 5.17,
+            "h": 6.065
+          },
+          {
+            "id": 8,
+            "confidence": 0.52,
+            "x": 74.413,
+            "y": 0.114,
+            "w": 7.927,
+            "h": 13.742
+          },
+          {
+            "id": 9,
+            "confidence": 0.507,
+            "x": 88.931,
+            "y": 53.925,
+            "w": 2.841,
+            "h": 5.191
+          },
+          {
+            "id": 10,
+            "confidence": 0.483,
+            "x": 26.344,
+            "y": 53.372,
+            "w": 4.337,
+            "h": 14.301
+          },
+          {
+            "id": 11,
+            "confidence": 0.478,
+            "x": 12.384,
+            "y": 0.102,
+            "w": 9.026,
+            "h": 13.428
+          },
+          {
+            "id": 12,
+            "confidence": 0.458,
+            "x": 53.921,
+            "y": 54.749,
+            "w": 4.932,
+            "h": 5.22
+          },
+          {
+            "id": 13,
+            "confidence": 0.413,
+            "x": 53.507,
+            "y": 44.304,
+            "w": 3.371,
+            "h": 5.633
+          },
+          {
+            "id": 14,
+            "confidence": 0.403,
+            "x": 53.055,
+            "y": 36.826,
+            "w": 2.74,
+            "h": 5.276
+          },
+          {
+            "id": 15,
+            "confidence": 0.401,
+            "x": 94.848,
+            "y": 0.099,
+            "w": 5.019,
+            "h": 14.295
+          }
+        ]
+      }
+    },
+    {
+      "id": "surface",
+      "tab": "Surface cover",
+      "number": "03",
+      "mode": "classify",
+      "workspace": "denver-surface",
+      "title": "Surface cover at Denver",
+      "place": "Denver International (DEN)",
+      "coords": "39.859\u00b0 N \u00b7 104.669\u00b0 W",
+      "date": "NAIP aerial \u00b7 0.3 m",
+      "summary": "A NAIP crop is grouped into four surface classes using colour, brightness and NDVI. Toggle a class to isolate it.",
+      "question": "Classify the surface cover around the Denver concourses: roofs and aircraft, apron, vegetation, dry ground.",
+      "metric": {
+        "value": "4",
+        "unit": "classes",
+        "label": "from one NAIP crop"
+      },
+      "stats": [
+        {
+          "label": "Apron / pavement",
+          "value": "52.9%"
+        },
+        {
+          "label": "Dry grass / bare",
+          "value": "35.1%"
+        },
+        {
+          "label": "Roofs / aircraft",
+          "value": "7.7%"
+        },
+        {
+          "label": "Vegetation",
+          "value": "4.3%"
+        }
+      ],
+      "method": "NAIP RGB + NDVI \u00b7 k-means, 5 clusters merged to 4 classes",
+      "source": "USDA NAIP 2023 \u00b7 0.3 m crop",
+      "files": [
+        "data/den_naip2023_crop.tif",
+        "results/surface_classes/",
+        "results/surface_share.json",
+        "maps/denver-surface.geolibre.json",
+        "traces/run.jsonl"
+      ],
+      "log": [
+        {
+          "step": "Crop NAIP",
+          "detail": "2.1 \u00d7 1.2 km"
+        },
+        {
+          "step": "Features",
+          "detail": "RGB + NDVI"
+        },
+        {
+          "step": "K-means",
+          "detail": "5 clusters"
+        },
+        {
+          "step": "Merge",
+          "detail": "4 surface classes"
+        },
+        {
+          "step": "Render",
+          "detail": "one layer per class"
+        }
+      ],
+      "map": {
+        "image": "/demo/denver-airport.jpg",
+        "scale": "500 m",
+        "attribution": "USDA NAIP 2023 \u00b7 0.3 m",
+        "labels": [
+          {
+            "text": "Concourse B",
+            "sub": "DEN",
+            "x": 40,
+            "y": 58
+          },
+          {
+            "text": "Apron 3",
+            "sub": "aircraft stands",
+            "x": 62,
+            "y": 66
+          }
+        ],
+        "classes": [
+          {
+            "id": "structures",
+            "label": "Roofs / aircraft",
+            "color": "#bc5236",
+            "share": 7.7,
+            "image": "/demo/landcover-structures.png",
+            "on": true
+          },
+          {
+            "id": "vegetation",
+            "label": "Vegetation",
+            "color": "#2f6b45",
+            "share": 4.3,
+            "image": "/demo/landcover-vegetation.png",
+            "on": true
+          },
+          {
+            "id": "dry",
+            "label": "Dry grass / bare",
+            "color": "#d4a84f",
+            "share": 35.1,
+            "image": "/demo/landcover-dry.png",
+            "on": true
+          },
+          {
+            "id": "apron",
+            "label": "Apron / pavement",
+            "color": "#8b99a4",
+            "share": 52.9,
+            "image": "/demo/landcover-apron.png",
+            "on": false
+          }
+        ]
+      }
+    }
+  ]
+}

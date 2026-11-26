@@ -1,0 +1,62 @@
+{{ define "main" }}
+<div class="container docs-shell">
+  {{ partial "docs-sidebar.html" . }}
+
+  <article class="docs-article">
+    <div class="breadcrumb">
+      <a href="{{ "docs/" | relURL }}">Docs</a>
+      {{ with .Parent }}{{ if ne .RelPermalink "/docs/" }}
+        <span class="sep">/</span><a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}{{ end }}
+      <span class="sep">/</span><span>{{ .Title }}</span>
+    </div>
+
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="docs-lede">{{ . }}</p>{{ end }}
+
+    <div class="prose">
+      {{ .Content }}
+    </div>
+
+    {{- $docs := site.GetPage "/docs" -}}
+    {{- $pages := slice -}}
+    {{- range $docs.Pages.ByWeight -}}
+      {{- if .IsSection -}}
+        {{- range .RegularPages.ByWeight -}}{{- $pages = $pages | append . -}}{{- end -}}
+      {{- else -}}
+        {{- $pages = $pages | append . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $prev := false -}}
+    {{- $next := false -}}
+    {{- range $i, $p := $pages -}}
+      {{- if eq $p.RelPermalink $.RelPermalink -}}
+        {{- if gt $i 0 -}}{{- $prev = index $pages (sub $i 1) -}}{{- end -}}
+        {{- if lt (add $i 1) (len $pages) -}}{{- $next = index $pages (add $i 1) -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    <nav class="docs-pager" aria-label="Documentation pages">
+      {{ with $prev }}
+        <a href="{{ .RelPermalink }}"><span>Previous</span>{{ .Title }}</a>
+      {{ else }}<span></span>{{ end }}
+      {{ with $next }}
+        <a class="next" href="{{ .RelPermalink }}"><span>Next</span>{{ .Title }}</a>
+      {{ end }}
+    </nav>
+
+    <div class="docs-footer">
+      <span>Last updated {{ .Lastmod.Format "January 2, 2006" }}</span>
+      <a href="{{ site.Params.issues }}" target="_blank" rel="noopener">Report a docs issue →</a>
+    </div>
+  </article>
+
+  {{ if .Fragments.Headings }}
+    <aside class="toc">
+      <p class="toc-title">On this page</p>
+      {{ .TableOfContents }}
+    </aside>
+  {{ else }}
+    <div></div>
+  {{ end }}
+</div>
+{{ end }}
