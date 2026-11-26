@@ -1,0 +1,235 @@
+{{ define "main" }}
+{{ $install := "git clone https://github.com/spatialint-org/spatial-intelligence\ncd spatial-intelligence && make venv && make dev" }}
+
+<section class="intro">
+  <div class="container">
+    <div class="intro-grid">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>Spatial Intelligence</p>
+        <h1>Turn a geospatial question into a map.</h1>
+      </div>
+      <div class="intro-side">
+        <p>
+          Spatial Intelligence is an agent for geospatial analysis. Ask in plain language and get the
+          analysis, a live map, and the files behind it — in one workspace.
+        </p>
+        <div class="intro-actions">
+          <a class="btn btn-primary" href="#app">See it in action <span class="arrow">↓</span></a>
+          <a class="btn btn-outline" href="{{ "/docs/getting-started/" | relURL }}">Get started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="app-preview" id="app">
+  <div class="container">
+    <div class="preview-head">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>The app</p>
+        <h2>See the agent at work.</h2>
+      </div>
+      <p>
+        A real workspace with imagery, analysis layers, and the run record. Use the
+        <strong>Cells</strong> and <strong>Data</strong> tabs in the frame.
+      </p>
+    </div>
+
+    <div class="app-live-wrap">
+      <iframe class="app-live-frame" src="{{ "/app-preview/shell.html" | relURL }}"
+        title="Interactive preview of the Spatial Intelligence app: flood workspace, layers, and notebook"
+        loading="lazy"></iframe>
+    </div>
+    <p class="app-swipe">Swipe sideways to see the full app →</p>
+
+    <p class="app-note">
+      HTML/CSS preview of the app. <strong>Layer visibility and opacity</strong>, the map layer search,
+      and the <strong>Cells</strong> / <strong>Data</strong> tabs work. The map is a static image, run
+      buttons are inert, and the preview follows the site theme.
+      <a href="{{ "/docs/getting-started/" | relURL }}">Install the app</a> for the live GeoLibre map.
+    </p>
+  </div>
+</section>
+
+<section class="examples" id="examples">
+  <div class="container">
+    <div class="examples-head">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>Use cases</p>
+        <h2>What you can do with Spatial Intelligence.</h2>
+      </div>
+      <p>
+        Start with a question. The agent finds the data, runs the analysis, and builds the map. These
+        examples show the source and the result.
+      </p>
+    </div>
+
+    <div class="example-grid">
+      <article class="example-card">
+        <img src="/demo/flood-after.jpg" width="2400" height="1350" loading="lazy" alt="Tulare Lake after the 2023 flood">
+        <div class="example-body">
+          <p class="example-num">01 / Flood extent</p>
+          <h3>Measure a flood</h3>
+          <p>Tulare Lake, California. See how much new water appeared between June 2022 and June 2023.</p>
+          <dl>
+            <div><dt>Source</dt><dd>Sentinel-2 L2A</dd></div>
+            <div><dt>Result</dt><dd>226.8 km² new water</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="example-card">
+        <img src="/demo/buildings-card.jpg" width="1200" height="675" loading="lazy" alt="Large buildings in Long Beach marked with detection boxes">
+        <div class="example-body">
+          <p class="example-num">02 / Building detection</p>
+          <h3>Find large buildings</h3>
+          <p>Long Beach, California. Locate large structures in high-resolution imagery and map each footprint.</p>
+          <dl>
+            <div><dt>Source</dt><dd>Google satellite z18</dd></div>
+            <div><dt>Result</dt><dd>15 buildings mapped</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="example-card">
+        <img src="/demo/surface-cover.jpg" width="2400" height="1350" loading="lazy" alt="Surface cover classes over the Denver airport">
+        <div class="example-body">
+          <p class="example-num">03 / Surface cover</p>
+          <h3>Map surface cover</h3>
+          <p>Denver, Colorado. Classify pavement, roofs, vegetation, and dry ground from aerial imagery.</p>
+          <dl>
+            <div><dt>Source</dt><dd>USDA NAIP 2023</dd></div>
+            <div><dt>Result</dt><dd>4 surface classes</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <div class="how-head">
+      <p class="eyebrow"><span class="eyebrow-mark"></span>How it works</p>
+      <h2>From question to map.</h2>
+    </div>
+    <div class="how-grid">
+      <article>
+        <span class="how-num">1</span>
+        <h3>Ask in plain language</h3>
+        <p>Describe the place, the data, and the result you need. No tool sequence is required.</p>
+      </article>
+      <article>
+        <span class="how-num">2</span>
+        <h3>The agent does the work</h3>
+        <p>It finds imagery, runs the analysis, and updates the map while it works.</p>
+      </article>
+      <article>
+        <span class="how-num">3</span>
+        <h3>Keep what it produces</h3>
+        <p>The map, the data, and the run record stay together in a workspace you own.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="files-section">
+  <div class="container files-grid">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>Workspace</p>
+      <h2>Your results stay yours.</h2>
+      <p>
+        Every analysis writes to a workspace on your machine: source imagery, results, the map
+        project, and a record of the run.
+      </p>
+      <ul class="ticks">
+        <li>Open outputs in QGIS, ArcGIS, or any standard raster or vector reader.</li>
+        <li>Review the run record to see what the agent did and why.</li>
+        <li>Run the app locally. Analysis data is not stored on our servers.</li>
+        <li>Use your own Python when no existing tool fits.</li>
+      </ul>
+    </div>
+    <div class="workspace-card">
+      <div class="workspace-head"><span>flood-demo/</span><span>Workspace</span></div>
+      <pre>data/
+  source imagery
+results/
+  flood extent
+  summary statistics
+maps/
+  map project
+traces/
+  run record</pre>
+      <div class="workspace-foot"><span>Files you own</span><span>No database</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="models">
+  <div class="container models-grid">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>Models</p>
+      <h2>Use the model that fits your work.</h2>
+      <p class="models-lede">
+        Choose a hosted model or run one locally. The geospatial tools and local detection models run
+        on your machine.
+      </p>
+    </div>
+    <div class="model-list">
+      <div><span>Hosted</span><strong>OpenAI · Anthropic · Google</strong></div>
+      <div><span>Local</span><strong>Ollama · any OpenAI-compatible endpoint</strong></div>
+      <div><span>On-device</span><strong>ONNX detection and segmentation</strong></div>
+      <div><span>Configuration</span><strong>One model string in <code>.env</code></strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="reading">
+  <div class="container">
+    <div class="reading-head">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>Blog</p>
+        <h2>Project updates and walkthroughs.</h2>
+      </div>
+      <a class="text-link" href="{{ "/blog/" | relURL }}">All posts <span>→</span></a>
+    </div>
+    <div class="reading-grid">
+      {{ range first 2 (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+        <article class="reading-card">
+          <div class="reading-meta">{{ .Date.Format "Jan 2, 2006" }} <span>·</span> {{ .ReadingTime }} min</div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Description }}</p>
+          <a class="reading-more" href="{{ .RelPermalink }}">Read →</a>
+        </article>
+      {{ end }}
+      <aside class="reading-docs">
+        <p class="eyebrow">Documentation</p>
+        <a href="{{ "/docs/getting-started/" | relURL }}"><span>01</span>Install</a>
+        <a href="{{ "/docs/getting-started/quickstart/" | relURL }}"><span>02</span>Quickstart</a>
+        <a href="{{ "/docs/guides/analysis-walkthrough/" | relURL }}"><span>03</span>Analysis walkthrough</a>
+        <a href="{{ "/docs/reference/configuration/" | relURL }}"><span>04</span>Configuration</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta-inner">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>Get started</p>
+      <h2>Run it on your own data.</h2>
+      <p>Install locally and open a workspace in your browser. Python 3.11 or newer.</p>
+    </div>
+    <div class="cta-actions">
+      <div class="install">
+        <div class="install-code">
+          <div><span class="sigil">$</span>git clone https://github.com/spatialint-org/spatial-intelligence</div>
+          <div><span class="sigil">$</span>cd spatial-intelligence && make venv && make dev</div>
+        </div>
+        <button class="copy-btn" type="button" data-copy="{{ $install }}">Copy</button>
+      </div>
+      <a class="btn btn-outline" href="{{ site.Params.github }}" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </div>
+</section>
+{{ end }}

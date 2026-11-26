@@ -1,0 +1,37 @@
+{{ define "main" }}
+<article>
+  <header class="container post-header">
+    <div class="post-meta">
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      <span class="sep"></span>
+      <span>{{ .ReadingTime }} min read</span>
+      <span class="sep"></span>
+      <span>{{ site.Params.author }}</span>
+      {{ if .Draft }}<span class="sep"></span><span class="draft">Draft</span>{{ end }}
+    </div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with .Params.cover }}
+    <div class="container">
+      <div class="post-cover-wide">
+        <img src="{{ . }}" width="1200" height="630" alt="{{ $.Params.coverAlt | default "" }}">
+      </div>
+    </div>
+  {{ end }}
+
+  <div class="container">
+    <div class="post-content-wrap">
+      <div class="prose">{{ .Content }}</div>
+    </div>
+
+    <footer class="post-footer">
+      <a href="{{ "/blog/" | relURL }}">← All posts</a>
+      <span>
+        {{ with .Params.tags }}{{ delimit . " · " }}{{ end }}
+      </span>
+    </footer>
+  </div>
+</article>
+{{ end }}

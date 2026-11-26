@@ -1,0 +1,59 @@
+{{ define "main" }}
+{{ if .Parent.IsHome }}
+  <div class="container">
+    <div class="docs-index-head">
+      <p class="eyebrow"><span class="eyebrow-mark"></span>Docs</p>
+      <h1>Documentation</h1>
+      <p>
+        Install the app, run an analysis, and find the settings and architecture reference. The
+        docs describe the current source tree.
+      </p>
+    </div>
+
+    <div class="docs-index-grid">
+      {{ range .Pages.ByWeight }}
+        <a class="docs-index-card" href="{{ .RelPermalink }}">
+          <span class="kicker">{{ if .IsSection }}Guide{{ else }}Reference{{ end }}</span>
+          <h2>{{ .Title }}</h2>
+          <p>{{ .Description }}</p>
+          <span class="more">
+            {{ if .IsSection }}{{ len .RegularPages }} page{{ if ne (len .RegularPages) 1 }}s{{ end }}{{ else }}Open page{{ end }} →
+          </span>
+        </a>
+      {{ end }}
+    </div>
+
+    <div class="docs-index-head" style="padding-top:54px">
+      <div class="prose">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+{{ else }}
+  <div class="container docs-shell">
+    {{ partial "docs-sidebar.html" . }}
+    <article class="docs-article">
+      <div class="breadcrumb">
+        <a href="{{ "/docs/" | relURL }}">Docs</a>
+        <span class="sep">/</span><span>{{ .Title }}</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="docs-lede">{{ . }}</p>{{ end }}
+      <div class="prose">{{ .Content }}</div>
+
+      <div class="docs-children">
+        {{ range .RegularPages.ByWeight }}
+          <a class="docs-child" href="{{ .RelPermalink }}">
+            <span>
+              <strong>{{ .Title }}</strong>
+              <span class="docs-child-desc">{{ .Description }}</span>
+            </span>
+            <span class="docs-child-arrow">→</span>
+          </a>
+        {{ end }}
+      </div>
+    </article>
+    <div></div>
+  </div>
+{{ end }}
+{{ end }}

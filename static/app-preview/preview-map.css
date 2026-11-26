@@ -1,0 +1,468 @@
+/* Lightweight static map panel for the website preview. */
+
+#map-panel {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--surface-3);
+}
+
+.pm-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  color: var(--text);
+  background: var(--surface);
+  font-family: var(--font-ui);
+}
+
+.pm-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  min-height: 33px;
+  padding: 0 6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.pm-topbar .pm-spacer {
+  margin-left: auto;
+}
+
+.pm-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.pm-icon-btn:hover {
+  color: var(--text);
+  background: var(--surface-3);
+}
+
+.pm-icon-btn svg {
+  display: block;
+}
+
+.pm-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.pm-rail {
+  display: flex;
+  flex: 0 0 35px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 2px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.pm-rail-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  min-height: 66px;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+.pm-rail-btn span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pm-rail-btn.active {
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.pm-rail-btn:hover {
+  color: var(--text);
+  background: var(--surface-3);
+}
+
+.pm-layers {
+  display: flex;
+  flex: 0 0 212px;
+  flex-direction: column;
+  min-width: 0;
+  border-right: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.pm-layers-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 35px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.pm-layers-head > span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pm-layers-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-left: auto;
+}
+
+.pm-layers-head-actions .pm-icon-btn {
+  width: 22px;
+  height: 22px;
+}
+
+.pm-layer-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 7px;
+}
+
+.pm-layer {
+  margin-bottom: 7px;
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+  cursor: default;
+}
+
+.pm-layer:hover {
+  border-color: var(--border-strong);
+}
+
+.pm-layer.is-selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.pm-layer.is-hidden .pm-layer-name,
+.pm-layer.is-hidden .pm-layer-kind {
+  color: var(--text-3);
+}
+
+.pm-layer-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pm-grip {
+  display: inline-flex;
+  flex: 0 0 10px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  cursor: grab;
+}
+
+.pm-eye {
+  display: inline-flex;
+  flex: 0 0 22px;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.pm-eye:hover {
+  color: var(--text);
+  background: var(--surface-3);
+}
+
+.pm-layer-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+}
+
+.pm-layer-name {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-layer-kind {
+  flex: 0 0 auto;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+.pm-opacity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 6px 0 0 28px;
+  color: var(--text-3);
+  font-size: 9.5px;
+}
+
+.pm-opacity input {
+  min-width: 0;
+  flex: 1;
+  height: 4px;
+  accent-color: var(--primary);
+}
+
+.pm-opacity output {
+  flex: 0 0 25px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-align: right;
+}
+
+.pm-layer-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin: 4px 0 0 28px;
+}
+
+.pm-layer-actions .pm-icon-btn {
+  width: 20px;
+  height: 19px;
+  color: var(--text-3);
+}
+
+.pm-layer-actions .pm-icon-btn:hover {
+  color: var(--text);
+}
+
+.pm-search {
+  position: relative;
+  padding: 7px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.pm-search svg {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  color: var(--text-3);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.pm-search input {
+  width: 100%;
+  height: 29px;
+  padding: 0 8px 0 27px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+}
+
+.pm-search input::placeholder {
+  color: var(--text-3);
+}
+
+.pm-search input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-soft);
+}
+
+.pm-map {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  background: #dce5dc;
+}
+
+.pm-map-stack {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #dce5dc;
+}
+
+.pm-map-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.pm-map-img[data-map-layer="before"] {
+  z-index: 1;
+}
+
+.pm-map-img[data-map-layer="after"] {
+  z-index: 2;
+}
+
+.pm-map-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pm-map-controls .pm-icon-btn {
+  width: 29px;
+  height: 29px;
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text-2);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.14);
+  backdrop-filter: blur(4px);
+}
+
+.pm-map-controls .pm-icon-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.pm-scale,
+.pm-attrib {
+  position: absolute;
+  z-index: 5;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+.pm-scale {
+  bottom: 8px;
+  left: 8px;
+}
+
+.pm-attrib {
+  right: 8px;
+  bottom: 8px;
+}
+
+.pm-side-rail {
+  display: flex;
+  flex: 0 0 30px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 2px;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.pm-side-rail .pm-rail-btn {
+  width: 26px;
+  min-height: 58px;
+  color: var(--text-3);
+}
+
+.pm-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 23px;
+  padding: 0 8px;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  white-space: nowrap;
+}
+
+.pm-status .pm-status-end {
+  margin-left: auto;
+}
+
+.pm-status button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+/* Map darkening is kept subtle so the raster remains readable in both themes. */
+[data-theme="dark"] .pm-map {
+  background: #0b100d;
+}
+
+[data-theme="dark"] .pm-map-stack {
+  background: #0b100d;
+}
+
+[data-theme="dark"] .pm-map-img {
+  filter: brightness(0.94) contrast(1.02);
+}
+
+[data-theme="dark"] .pm-layer {
+  box-shadow: none;
+}
+
+@media (max-width: 720px) {
+  .pm-layers {
+    flex-basis: 188px;
+  }
+
+  .pm-side-rail {
+    display: none;
+  }
+}
