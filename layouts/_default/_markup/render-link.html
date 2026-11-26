@@ -1,0 +1,16 @@
+{{- $href := .Destination -}}
+{{- if and (hasPrefix $href "/") (not (hasPrefix $href "//")) -}}
+  {{- $fragment := "" -}}
+  {{- if strings.Contains $href "#" -}}
+    {{- $parts := split $href "#" -}}
+    {{- $href = index $parts 0 -}}
+    {{- $fragment = printf "#%s" (index $parts 1) -}}
+  {{- end -}}
+  {{- if eq $href "/" -}}
+    {{- $href = site.Home.RelPermalink -}}
+  {{- else -}}
+    {{- $href = strings.TrimPrefix "/" $href | relURL -}}
+  {{- end -}}
+  {{- $href = printf "%s%s" $href $fragment -}}
+{{- end -}}
+<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

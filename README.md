@@ -121,10 +121,15 @@ app-preview examples. The homepage map plates and class overlays were generated 
 `.github/workflows/pages.yml` builds the site with Hugo and publishes `public/` to GitHub Pages on
 every push to `main`.
 
-One repository setting is required:
+The workflow reads the deployed Pages URL from `actions/configure-pages` and passes it to
+`hugo --baseURL`. The same build therefore works at a project URL such as
+`https://rahuldshetty.github.io/spatialint-org.github.io/` and at the custom domain. All internal
+asset and content URLs are base-path aware.
 
-**Settings → Pages → Build and deployment → Source: GitHub Actions.**
+**Before merging/deploying upstream:**
 
-The custom domain is `spatialint.com`, carried by `static/CNAME`. If Pages is still configured to
-deploy from a branch, switch it to GitHub Actions before removing the old root `index.html` from a
-deployment branch.
+- Enable Pages for the repository with **Source: GitHub Actions**.
+- Confirm the custom domain `spatialint.com` is set in Pages and that `static/CNAME` matches.
+- Configure DNS for the apex and `www` records, then enforce HTTPS.
+- Ensure the `github-pages` environment allows deployments from `main`.
+- Re-run the workflow after enabling Pages; the first run fails at `configure-pages` if Pages is off.

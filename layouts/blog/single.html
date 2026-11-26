@@ -16,7 +16,7 @@
   {{ with .Params.cover }}
     <div class="container">
       <div class="post-cover-wide">
-        <img src="{{ . }}" width="1200" height="630" alt="{{ $.Params.coverAlt | default "" }}">
+        <img src="{{ strings.TrimPrefix "/" . | relURL }}" width="1200" height="630" alt="{{ $.Params.coverAlt | default "" }}">
       </div>
     </div>
   {{ end }}
@@ -27,7 +27,7 @@
     </div>
 
     <footer class="post-footer">
-      <a href="{{ "/blog/" | relURL }}">← All posts</a>
+      <a href="{{ "blog/" | relURL }}">← All posts</a>
       <span>
         {{ with .Params.tags }}{{ delimit . " · " }}{{ end }}
       </span>

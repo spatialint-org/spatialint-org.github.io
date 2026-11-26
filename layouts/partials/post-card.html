@@ -3,7 +3,7 @@
 <article class="post-card{{ if $featured }} featured{{ end }}">
   <a href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
     {{ with $page.Params.cover }}
-      <img class="post-cover" src="{{ . }}" width="1200" height="630" loading="lazy" alt="">
+      <img class="post-cover" src="{{ strings.TrimPrefix "/" . | relURL }}" width="1200" height="630" loading="lazy" alt="">
     {{ end }}
   </a>
   <div class="post-body">
